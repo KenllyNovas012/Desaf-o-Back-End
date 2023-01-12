@@ -26,11 +26,11 @@ namespace System.WebApi.Controllers
         /// <param name="count"></param>
         /// <returns></returns>
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetUser(int UserId)
+        public async Task<IActionResult> GetUser(int UserId, int page = 1, int count = 0)
         {
             try
             {
-                var response = await _usersGoalsServices.GetUser(UserId);
+                var response = await _usersGoalsServices.GetUser(UserId, page, count);
                 return Ok(response);
             }
             catch (Exception)
