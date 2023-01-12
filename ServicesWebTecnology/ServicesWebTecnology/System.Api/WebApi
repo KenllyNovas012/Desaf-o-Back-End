@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SystemApi</name>
+    </assembly>
+    <members>
+        <member name="M:SystemApi.Controllers.AccountController.BuildToken(System.services.ViewModels.UserInfoViewModel)">
+            <summary>
+            ///////////////
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SystemApi.Controllers.ModalidadController">
+            <summary>
+            Crea un nuevo objeto en la BD.
+            </summary>
+            <remarks>
+            Aquí una descripción mas larga si fuera necesario. Crea un nuevo objeto en la BD.
+            </remarks>
+        </member>
+        <member name="M:SystemApi.Controllers.ModalidadController.#ctor(AutoMapper.IMapper,System.services.IServices.IModalidaServices)">
+            <summary>
+            Crea un nuevo objeto en la BD.
+            </summary>
+            <remarks>
+            Aquí una descripción mas larga si fuera necesario. Crea un nuevo objeto en la BD.
+            </remarks>
+        </member>
+        <member name="M:SystemApi.Controllers.ModalidadController.GetModalidad">
+            <summary>
+            Crea un nuevo objeto en la BD.
+            </summary>
+            <remarks>
+            Aquí una descripción mas larga si fuera necesario. Crea un nuevo objeto en la BD.
+            </remarks>
+        </member>
+        <member name="M:SystemApi.Controllers.ModalidadController.GetModalidad(System.Int32)">
+            <summary>
+            Obtiene un objeto por su Id.
+            </summary>
+            <remarks>
+            Aquí una descripción mas larga si fuera necesario. Obtiene un objeto por su Id.
+            </remarks>
+            <param name="id">Id (GUID) del objeto.</param>
+            <response code="401">Unauthorized. No se ha indicado o es incorrecto el Token JWT de acceso.</response>              
+            <response code="200">OK. Devuelve el objeto solicitado.</response>        
+            <response code="404">NotFound. No se ha encontrado el objeto solicitado.</response>        
+        </member>
+    </members>
+</doc>
