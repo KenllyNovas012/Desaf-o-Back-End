@@ -15,9 +15,9 @@ namespace System.Infrastructure.Services
     {
         private readonly IUsersRepository _iusersRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<CompositioncategoryServices> _logger;
+        private readonly ILogger<UsersGoalsServices> _logger;
         private int _pagination;
-        public UsersGoalsServices(IConfiguration config, IMapper mapper, IUsersRepository  usersRepository, ILogger<CompositioncategoryServices> logger)
+        public UsersGoalsServices(IConfiguration config, IMapper mapper, IUsersRepository  usersRepository, ILogger<UsersGoalsServices> logger)
         {
             _iusersRepository = usersRepository;
             _mapper = mapper;
@@ -62,14 +62,14 @@ namespace System.Infrastructure.Services
             }
 
         }
-        public Task<Result<UsersDto>> UsersGoals( int UserId, int page = 1, int count = 0)
+        public Task<Result<UsersGoalsDto>> UsersGoals( int UserId, int page = 1, int count = 0)
         {
             try
             {
                 var Entities = _iusersRepository.UsersGoals(UserId).ToList();
-                var results = _mapper.Map<List<UsersDto>>(Entities);
+                var results = _mapper.Map<List<UsersGoalsDto>>(Entities);
                 var _count = Entities.Count();
-                var paginador = new GenericPage<UsersDto>();
+                var paginador = new GenericPage<UsersGoalsDto>();
                 var result = paginador.Get(results, _count, page, count == 0 ? _pagination : count);
                 return Task.FromResult(result);
             }
