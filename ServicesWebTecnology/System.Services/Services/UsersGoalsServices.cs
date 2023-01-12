@@ -80,14 +80,14 @@ namespace System.Infrastructure.Services
             }
 
         }
-        public Task<Result<UsersDto>> UsersGoalsDetails(int userId, int GoalsId, int page = 1, int count = 0)
+        public Task<Result<UsersGoalsDetailsDto>> UsersGoalsDetails(int userId, int GoalsId, int page = 1, int count = 0)
         {
             try
             {
                 var Entities = _iusersRepository.UsersGoalsDetails(userId, GoalsId).ToList();
-                var results = _mapper.Map<List<UsersDto>>(Entities);
+                var results = _mapper.Map<List<UsersGoalsDetailsDto>>(Entities);
                 var _count = Entities.Count();
-                var paginador = new GenericPage<UsersDto>();
+                var paginador = new GenericPage<UsersGoalsDetailsDto>();
                 var result = paginador.Get(results, _count, page, count == 0 ? _pagination : count);
                 return Task.FromResult(result);
             }
