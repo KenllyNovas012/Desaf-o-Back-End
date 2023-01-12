@@ -26,11 +26,11 @@ namespace System.WebApi.Controllers
         /// <param name="count"></param>
         /// <returns></returns>
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetUser(string Name, int UserId, int page = 1, int count = 0)
+        public async Task<IActionResult> GetUser(int UserId)
         {
             try
             {
-                var response = await _usersGoalsServices.GetUser(Name, UserId, page, count);
+                var response = await _usersGoalsServices.GetUser(UserId);
                 return Ok(response);
             }
             catch (Exception)
@@ -46,11 +46,11 @@ namespace System.WebApi.Controllers
         /// </summary>     
         /// <returns></returns>
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetUsersummary(int UserId, int? goalid)
+        public async Task<IActionResult> GetUsersummary(int UserId)
         {
             try
             {
-                var response =  _usersGoalsServices.GetUsersummary(UserId, goalid);
+                var response =  _usersGoalsServices.GetUsersummary(UserId);
                 return Ok(response);
             }
             catch (Exception)

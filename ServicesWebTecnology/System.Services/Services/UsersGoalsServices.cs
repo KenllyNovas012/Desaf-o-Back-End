@@ -25,16 +25,11 @@ namespace System.Infrastructure.Services
             _pagination = Convert.ToInt32(config["Paginator"]);
         }
 
-        public Task<Result<UsersDto>> GetUser(string Name, int UserId, int page = 1, int count = 0)
+        public Task<Result<UsersDto>> GetUser(int UserId, int page = 1, int count = 0)
         {
             try
             {
-                var Entities = _iusersRepository.GetUser(UserId).ToList();
-
-                if (Name != null)
-                {
-                    Entities.Where(x => x.FullName == Name);
-                }
+                var Entities = _iusersRepository.GetUser(UserId).ToList();                
 
                 var results = _mapper.Map<List<UsersDto>>(Entities);
                 var _count = Entities.Count();
@@ -50,11 +45,11 @@ namespace System.Infrastructure.Services
             }
 
         }
-        public Response GetUsersummary(int UserId, int? goalid)
+        public Response GetUsersummary(int UserId)
         {
             try
             {
-                var Entities = _iusersRepository.GetUsersummary(UserId, goalid);
+                var Entities = _iusersRepository.GetUsersummary(UserId);
                 if (Entities == null)
                     return new Response {  IsSuccess = false, Message = "Datos no encontrado" };
 

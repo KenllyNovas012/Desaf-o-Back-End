@@ -10,7 +10,7 @@ namespace System.Infrastructure.IRepository
         IQueryable<UsersDto> GetUser(int Id);
         IQueryable<UsersGoalsDto> UsersGoals(int Id);
         IQueryable<UsersGoalsDetailsDto> UsersGoalsDetails(int UserId, int GoalsId);
-        UsersummaryDto GetUsersummary(int userid, int? goalid);
+        UsersummaryDto GetUsersummary(int userid);
 
 
     }

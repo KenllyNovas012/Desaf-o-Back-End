@@ -91,17 +91,11 @@ namespace System.Infrastructure.Repository
                              Financialentity = finaci.Title,
                              Totalcontributions = Totalcontributions(UserId,GoalsId),
                              Fullwithdrawal = Fullwithdrawal(UserId, GoalsId),
-                             Goalfulfillmentpercentage= (GetUsersummary(UserId, GoalsId).Balance / gol.Targetamount)*100
+                             Goalfulfillmentpercentage= (GetUsersummaryValue(UserId, GoalsId).Balance / gol.Targetamount)*100
                          });
             return query;
         }
-
-        /// <summary>
-        ///  Traer el resumen del usuario actual (considerar moneda)* 
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public UsersummaryDto GetUsersummary(int userid, int? goalid)
+        public UsersummaryDto GetUsersummaryValue(int userid, int? goalid)
         {
             var query = (from gol in _context.Goaltransactionfundings
                          join tran in _context.Goaltransactions on gol.Transactionid equals tran.Id
@@ -110,7 +104,34 @@ namespace System.Infrastructure.Repository
                          join funSh in _context.Fundingsharevalues on fun.Id equals funSh.Fundingid
                          join cur in _context.Currencies on use.Currencyid equals cur.Id
                          join cuin in _context.Currencyindicators on use.Currencyid equals cuin.Sourcecurrencyid
-                         where use.Id == userid && gol.Goalid == (goalid == null ? gol.Goalid:goalid) 
+                         where use.Id == userid && gol.Goalid == (goalid == null ? gol.Goalid : goalid)
+                         select new UsersummaryDto
+                         {
+                             Balance = gol.Quotas * funSh.Value * cuin.Value,
+                             AportesActuales = tran.Amount,
+                         });
+
+            var response = new UsersummaryDto();
+            response.Balance = query.Sum(x => x.Balance);
+            response.AportesActuales = query.Sum(x => x.AportesActuales);
+            return response;
+        }
+
+        /// <summary>
+        ///  Traer el resumen del usuario actual (considerar moneda)* 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public UsersummaryDto GetUsersummary(int userid)
+        {
+            var query = (from gol in _context.Goaltransactionfundings
+                         join tran in _context.Goaltransactions on gol.Transactionid equals tran.Id
+                         join use in _context.Users on gol.Ownerid equals use.Id
+                         join fun in _context.Fundings on gol.Fundingid equals fun.Id
+                         join funSh in _context.Fundingsharevalues on fun.Id equals funSh.Fundingid
+                         join cur in _context.Currencies on use.Currencyid equals cur.Id
+                         join cuin in _context.Currencyindicators on use.Currencyid equals cuin.Sourcecurrencyid
+                         where use.Id == userid  
                          select new UsersummaryDto
                          {
                              Balance = gol.Quotas * funSh.Value * cuin.Value,
